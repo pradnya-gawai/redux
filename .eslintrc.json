@@ -1,34 +1,42 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends":[ "airbnb", "plugin:prettier/recommended" ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "semi": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-unused-vars": "warn",
+    "react/prop-types": 0,
+    "prettier/prettier": 0,
+    "import/no-extraneous-dependencies": "off",
+    "no-console": 0,
+    "react/react-in-jsx-scope": "off",
+    "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "function-declaration",
+        "unnamedComponents": "arrow-function",
+        "react/prefer-stateless-function": [2, { "ignorePureComponents": true }]
+      }
     ],
-    "rules": {
-        "semi":0,
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "no-unused-vars": "warn",
-        "react/prop-types": 0,
-        "prettier/prettier": 0,
-        "import/no-extraneous-dependencies": "off",
-        "no-console": 0,
-        "react/react-in-jsx-scope": "off",
-        "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
-        "react/function-component-definition": ["error", {
-          "namedComponents": "function-declaration",
-          "unnamedComponents": "arrow-function"
-        }]
-    }
-        
-
+    "arrow-body-style": ["error", "as-needed"],
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ]
+  }
 }
