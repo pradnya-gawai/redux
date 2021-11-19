@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`"snapshot" of header component 1`] = `
+exports[`Header should render  header correctly 1`] = `
 <div>
   <span
     className="header"
+    data-testid="header"
   >
-    🎬 Movies Hub 🎬
+    Movies Hub 
   </span>
 </div>
 `;

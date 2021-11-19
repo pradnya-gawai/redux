@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should test snapshot of app 1`] = `
+<BrowserRouter>
+  <Header />
+  <div
+    className="app"
+    data-testid="app"
+  >
+    <WithStyles(ForwardRef(Container))>
+      <Switch>
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/"
+        />
+        <Route
+          component={[Function]}
+          path="/movies"
+        />
+        <Route
+          component={[Function]}
+          path="/series"
+        />
+        <Route
+          component={[Function]}
+          path="/search"
+        />
+      </Switch>
+    </WithStyles(ForwardRef(Container))>
+  </div>
+  <MainNav />
+</BrowserRouter>
+`;

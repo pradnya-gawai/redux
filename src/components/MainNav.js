@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     zIndex: 100,
   },
 });
-export default function SimpleBottomNavigation() {
+export default function MainNav() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const history = useHistory();
@@ -35,34 +35,41 @@ export default function SimpleBottomNavigation() {
   }, [value, history]);
 
   return (
-    <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
-      showLabels
-      className={classes.root}
-    >
-      <BottomNavigationAction
-        style={{ color: "white" }}
-        label="Trending"
-        icon={<WhatshotIcon />}
-      />
-      <BottomNavigationAction
-        style={{ color: "white" }}
-        label="Movies"
-        icon={<MovieIcon />}
-      />
-      <BottomNavigationAction
-        style={{ color: "white" }}
-        label="TV Series"
-        icon={<TvIcon />}
-      />
-      <BottomNavigationAction
-        style={{ color: "white" }}
-        label="Search"
-        icon={<SearchIcon />}
-      />
-    </BottomNavigation>
+    <div data-testid="main_nav">
+      <BottomNavigation
+        data-testid="mui-btm-nav"
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        showLabels
+        className={classes.root}
+      >
+        <BottomNavigationAction
+          data-testid="whatshot"
+          style={{ color: "white" }}
+          label="Trending"
+          icon={<WhatshotIcon />}
+        />
+        <BottomNavigationAction
+        data-testid="movie-icon"
+          style={{ color: "white" }}
+          label="Movies"
+          icon={<MovieIcon />}
+        />
+        <BottomNavigationAction
+        data-testid="tv-icon"
+          style={{ color: "white" }}
+          label="TV Series"
+          icon={<TvIcon />}
+        />
+        <BottomNavigationAction
+        data-testid="search-icon"
+          style={{ color: "white" }}
+          label="Search"
+          icon={<SearchIcon />}
+        />
+      </BottomNavigation>
+    </div>
   );
 }

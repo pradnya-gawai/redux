@@ -4,7 +4,7 @@ import "./Header.css";
 function Header() {
   return (
     <div>
-      <span className="header">🎬 Movies Hub 🎬</span>
+      <span className="header" data-testid="header">Movies Hub </span>
     </div>
   );
 }
