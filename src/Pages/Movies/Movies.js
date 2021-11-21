@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { moviesURL } from "../../config/config";
-import SingleContent from "../../components/SingleContent/SingleContent";
-import CustomPagination from "../../components/Pagination/CustomPagination";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { moviesURL } from '../../config/config';
+import SingleContent from '../../components/SingleContent/SingleContent';
+import CustomPagination from '../../components/Pagination/CustomPagination';
 
 function Movies() {
   const [page, setPage] = useState(1);
@@ -14,7 +14,7 @@ function Movies() {
       const { data } = await axios.get(
         `${moviesURL}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
       );
-       // console.log(data);
+      // console.log(data);
       // console.log(data.results);
       setContent(data.results);
       setNumOfPages(data.total_pages);
@@ -34,7 +34,7 @@ function Movies() {
       <span className="pageTitle" data-testid>
         Discover Movies
       </span>
-      <div className="trending" data-testid="s-id">
+      <div className="trending" data-testid="explore-movies">
         {content &&
           content.map((c) => (
             <SingleContent

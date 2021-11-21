@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import "./Trending.css";
-import { trendingURL } from "../../config/config";
-import SingleContent from "../../components/SingleContent/SingleContent";
-import CustomPagination from "../../components/Pagination/CustomPagination";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import './Trending.css';
+import { trendingURL } from '../../config/config';
+import SingleContent from '../../components/SingleContent/SingleContent';
+import CustomPagination from '../../components/Pagination/CustomPagination';
 
 function Trending() {
   const [page, setPage] = useState(1);
   const [content, setContent] = useState([]);
-  const [mode, setMode] = useState("ONLINE");
+  const [mode, setMode] = useState('ONLINE');
 
   // console.log(process.env);
   const fetchTrending = async () => {
@@ -18,7 +18,7 @@ function Trending() {
     // console.log(data.results);
     // seting data to Content
     setContent(data.results);
-    localStorage.setItem("trending", JSON.stringify(data.results));
+    localStorage.setItem('trending', JSON.stringify(data.results));
   };
   // every time page changes this will call
   useEffect(() => {
@@ -30,10 +30,10 @@ function Trending() {
   // effect for online and offline user
   useEffect(() => {
     if (navigator.onLine) {
-      setMode("ONLINE");
+      setMode('ONLINE');
     } else {
-      setMode("OFFLINE");
-      const collection = localStorage.getItem("trending");
+      setMode('OFFLINE');
+      const collection = localStorage.getItem('trending');
       setContent(JSON.parse(collection));
     }
   }, [mode]);
@@ -42,7 +42,7 @@ function Trending() {
     <div>
       {/* ofline mode alert */}
       <div>
-        {mode === "OFFLINE" ? (
+        {mode === 'OFFLINE' ? (
           <div className="offline-mode" role="alert">
             you are in offline mode or some issue with internet
           </div>
@@ -50,7 +50,7 @@ function Trending() {
       </div>
 
       <span className="pageTitle">Trending Today</span>
-      <div className="trending">
+      <div className="trending" data-testid="trending">
         {content &&
           content.map((c) => (
             <SingleContent

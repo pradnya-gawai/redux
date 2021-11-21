@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import TvIcon from "@material-ui/icons/Tv";
-import MovieIcon from "@material-ui/icons/Movie";
-import SearchIcon from "@material-ui/icons/Search";
-import WhatshotIcon from "@material-ui/icons/Whatshot";
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import TvIcon from '@material-ui/icons/Tv';
+import MovieIcon from '@material-ui/icons/Movie';
+import SearchIcon from '@material-ui/icons/Search';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
-    position: "fixed",
+    width: '100%',
+    position: 'fixed',
     bottom: 0,
-    backgroundColor: "#2d313a",
+    backgroundColor: '#2d313a',
     zIndex: 100,
   },
 });
@@ -24,13 +24,13 @@ export default function MainNav() {
 
   useEffect(() => {
     if (value === 0) {
-      history.push("/");
+      history.push('/');
     } else if (value === 1) {
-      history.push("/movies");
+      history.push('/movies');
     } else if (value === 2) {
-      history.push("/series");
+      history.push('/series');
     } else if (value === 3) {
-      history.push("/search");
+      history.push('/search');
     }
   }, [value, history]);
 
@@ -47,25 +47,25 @@ export default function MainNav() {
       >
         <BottomNavigationAction
           data-testid="whatshot"
-          style={{ color: "white" }}
+          style={{ color: 'white' }}
           label="Trending"
           icon={<WhatshotIcon />}
         />
         <BottomNavigationAction
-        data-testid="movie-icon"
-          style={{ color: "white" }}
+          data-testid="movie-icon"
+          style={{ color: 'white' }}
           label="Movies"
           icon={<MovieIcon />}
         />
         <BottomNavigationAction
-        data-testid="tv-icon"
-          style={{ color: "white" }}
+          data-testid="tv-icon"
+          style={{ color: 'white' }}
           label="TV Series"
           icon={<TvIcon />}
         />
         <BottomNavigationAction
-        data-testid="search-icon"
-          style={{ color: "white" }}
+          data-testid="search-icon"
+          style={{ color: 'white' }}
           label="Search"
           icon={<SearchIcon />}
         />

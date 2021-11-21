@@ -27,7 +27,7 @@ function Series ()  {
       <span className="pageTitle">
   Discover TV Series
       </span>
-      <div className="trending" data-testid="series">
+      <div className="trending" data-testid="explore-series">
         {content &&
           content.map((c) => (
             <SingleContent
