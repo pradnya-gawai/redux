@@ -28,9 +28,9 @@ function Search() {
     }
   };
 
-  // useEffect(() => {
-  //   fetchSearch();
-  // }, [type, page]);
+  useEffect(() => {
+    fetchSearch();
+  }, [type, page]);
 
   return (
     <div>

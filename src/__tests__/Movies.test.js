@@ -9,7 +9,7 @@ test('Movies for the 1st page are loaded correctly', async () => {
   // check if API call is successful
   expect((await screen.findAllByTestId('single'))[0]).toBeInTheDocument();
 
-  // check if the 2nd page is the current page
+  // check if the 1st page is the current page
   expect(screen.getByText('1')).toHaveAttribute('aria-current', 'true');
 
   // check if the data matches as per the API

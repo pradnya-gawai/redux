@@ -1,3 +1,4 @@
+
 export const trendingData = {
   page: 1,
   results: [

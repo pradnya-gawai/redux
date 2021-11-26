@@ -15,7 +15,7 @@ function Trending() {
     const { data } = await axios.get(
       `${trendingURL}?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
     );
-    // console.log(data.results);
+    console.log(data);
     // seting data to Content
     setContent(data.results);
     localStorage.setItem('trending', JSON.stringify(data.results));

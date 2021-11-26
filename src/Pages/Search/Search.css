@@ -2,3 +2,6 @@
   display: flex;
   margin: 15px 0;
 }
+.not-found {
+  color: red;
+}
