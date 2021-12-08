@@ -1,20 +1,25 @@
-import { act, render, screen } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import { trendingData } from '../mocks/fixtures';
 import Trending from '../Pages/Trending/Trending';
+import { WithProvider } from '../helpers';
 
 test('if trending movies are rendered correctly', async () => {
-  act(() => {
-    render(<Trending />);
-  });
+  render(
+    <WithProvider>
+      <Trending />
+    </WithProvider>
+  );
 
   expect((await screen.findAllByTestId('single'))[0]).toBeInTheDocument();
   expect(screen.getByTestId('trending').children.length).toEqual(19);
 });
 
 test('if the first two items are rendered with the correct name', async () => {
-  act(() => {
-    render(<Trending />);
-  });
+  render(
+    <WithProvider>
+      <Trending />
+    </WithProvider>
+  );
 
   expect((await screen.findAllByTestId('single'))[0]).toBeInTheDocument();
 

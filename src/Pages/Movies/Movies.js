@@ -1,33 +1,22 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { moviesURL } from '../../config/config';
+import { useDispatch, useSelector } from 'react-redux';
 import SingleContent from '../../components/SingleContent/SingleContent';
 import CustomPagination from '../../components/Pagination/CustomPagination';
+import { fetchMovies } from '../../store/movies';
+// import { useFetchMoviesQuery } from '../../store/redux-toolkit/api';
 
 function Movies() {
-  const [page, setPage] = useState(1);
-  const [content, setContent] = useState([]);
-  const [numOfPages, setNumOfPages] = useState();
+  const data = useSelector((state) => state.movies);
+  const dispatch = useDispatch();
 
-  const fetchMovies = async () => {
-    try {
-      const { data } = await axios.get(
-        `${moviesURL}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
-      );
-      console.log(data);
-      console.log(data.results);
-      setContent(data.results);
-      setNumOfPages(data.total_pages);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [page, setPage] = useState(1);
+  const content = data?.results;
+  // console.log(data.results)
 
   useEffect(() => {
-    // window.scroll(0, 0);
-    fetchMovies();
-    // eslint-disable-next-line
-  }, [page]);
+    // window.scrollTo(0, 0);
+    dispatch(fetchMovies(page));
+  },[page]);
 
   return (
     <div data-testid="movies-content">
@@ -35,21 +24,20 @@ function Movies() {
         Discover Movies
       </span>
       <div className="trending" data-testid="explore-movies">
-        {content &&
-          content.map((c) => (
-            <SingleContent
-              key={c.id}
-              id={c.id}
-              poster={c.poster_path}
-              title={c.title || c.name}
-              date={c.first_air_date || c.release_date}
-              media_type="movie"
-              vote_average={c.vote_average}
-            />
-          ))}
+        {content?.map((c) => (
+          <SingleContent
+            key={c.id}
+            id={c.id}
+            poster={c.poster_path}
+            title={c.title || c.name}
+            date={c.first_air_date || c.release_date}
+            media_type="movie"
+            vote_average={c.vote_average}
+          />
+        ))}
       </div>
-      {numOfPages > 1 && (
-        <CustomPagination setPage={setPage} numOfPages={numOfPages} />
+      {data?.total_pages > 1 && (
+        <CustomPagination setPage={setPage} numOfPages={data.total_pages} />
       )}
     </div>
   );

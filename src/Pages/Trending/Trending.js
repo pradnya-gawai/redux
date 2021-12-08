@@ -1,40 +1,25 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import './Trending.css';
-import { trendingURL } from '../../config/config';
+import { useDispatch, useSelector } from 'react-redux';
 import SingleContent from '../../components/SingleContent/SingleContent';
 import CustomPagination from '../../components/Pagination/CustomPagination';
+import './Trending.css';
+import { fetchTrending } from '../../store/trending';
 
 function Trending() {
-  const [page, setPage] = useState(1);
-  const [content, setContent] = useState([]);
-  const [mode, setMode] = useState('ONLINE');
+  const data = useSelector((state) => state.trending);
+  const dispatch = useDispatch();
 
-  // console.log(process.env);
-  const fetchTrending = async () => {
-    const { data } = await axios.get(
-      `${trendingURL}?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
-    );
-    console.log(data);
-    // seting data to Content
-    setContent(data.results);
-    localStorage.setItem('trending', JSON.stringify(data.results));
-  };
-  // every time page changes this will call
-  useEffect(() => {
-    // window.scroll(0, 0);
-    fetchTrending();
-    // eslint-disable-next-line
-  }, [page]);
+  const [page, setPage] = useState(1);
+  const [mode, setMode] = useState('ONLINE');
+  const content = data?.results;
 
   // effect for online and offline user
   useEffect(() => {
+    dispatch(fetchTrending(page));
     if (navigator.onLine) {
       setMode('ONLINE');
     } else {
       setMode('OFFLINE');
-      const collection = localStorage.getItem('trending');
-      setContent(JSON.parse(collection));
     }
   }, [mode]);
 
@@ -51,18 +36,17 @@ function Trending() {
 
       <span className="pageTitle">Trending Today</span>
       <div className="trending" data-testid="trending">
-        {content &&
-          content.map((c) => (
-            <SingleContent
-              key={c.id}
-              id={c.id}
-              poster={c.poster_path}
-              title={c.title || c.name}
-              date={c.first_air_date || c.release_date}
-              media_type={c.media_type}
-              vote_average={c.vote_average}
-            />
-          ))}
+        {content?.map((c) => (
+          <SingleContent
+            key={c.id}
+            id={c.id}
+            poster={c.poster_path}
+            title={c.title || c.name}
+            date={c.first_air_date || c.release_date}
+            media_type={c.media_type}
+            vote_average={c.vote_average}
+          />
+        ))}
       </div>
       <CustomPagination setPage={setPage} />
     </div>

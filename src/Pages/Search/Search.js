@@ -1,38 +1,28 @@
 import { Button, Tab, Tabs, TextField } from '@material-ui/core';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './Search.css';
 import SearchIcon from '@material-ui/icons/Search';
-import axios from 'axios';
-import { searchURL } from '../../config/config';
 import CustomPagination from '../../components/Pagination/CustomPagination';
 import SingleContent from '../../components/SingleContent/SingleContent';
+// import { useLazyFetchSearchQuery } from '../../store/redux-toolkit/api';
+import { fetchSearch } from '../../store/search';
 
 function Search() {
+  const data = useSelector((state) => state.search);
+  const dispatch = useDispatch();
   const [type, setType] = useState(0);
   const [searchText, setSearchText] = useState('');
-  const [page, setPage] = useState(1);
-  const [content, setContent] = useState([]);
-  const [numOfPages, setNumOfPages] = useState();
-
-  const fetchSearch = async () => {
-    try {
-      const { data } = await axios.get(
-        `${searchURL}${type ? 'tv' : 'movie'}?api_key=${
-          process.env.REACT_APP_API_KEY
-        }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
-      );
-      setContent(data.results);
-      setNumOfPages(data.total_pages);
-    } catch (error) {
-      // console.error(error);
-    }
-  };
-
+  const [page, setPage] = useState(10);
+  const content = data?.results;
+  
   useEffect(() => {
-    fetchSearch();
-  }, [type, page]);
+    window.scrollTo(0, 0);
+    dispatch(fetchSearch(searchText,page));
+    console.log(content)
+  },[]);
 
-  return (
+return (
     <div>
       <div className="search" data-testid="search">
         <TextField
@@ -44,7 +34,7 @@ function Search() {
           onChange={(e) => setSearchText(e.target.value)}
         />
         <Button
-          onClick={fetchSearch}
+          onClick={(dispatch) => fetchSearch({ type, searchText, page })}
           variant="contained"
           data-testid="search-btn"
           style={{ marginLeft: 10 }}
@@ -58,8 +48,6 @@ function Search() {
         indicatorColor="primary"
         textColor="primary"
         onChange={(event, newValue) => {
-          console.log(newValue);
-
           setType(newValue);
           setPage(1);
         }}
@@ -79,18 +67,17 @@ function Search() {
       </Tabs>
 
       <div className="trending" data-testid="search-content">
-        {content &&
-          content.map((c) => (
-            <SingleContent
-              key={c.id}
-              id={c.id}
-              poster={c.poster_path}
-              title={c.title || c.name}
-              date={c.first_air_date || c.release_date}
-              media_type={type ? 'tv' : 'movie'}
-              vote_average={c.vote_average}
-            />
-          ))}
+        {content?.map((c) => (
+          <SingleContent
+            key={c.id}
+            id={c.id}
+            poster={c.poster_path}
+            title={c.title || c.name}
+            date={c.first_air_date || c.release_date}
+            media_type={type ? 'tv' : 'movie'}
+            vote_average={c.vote_average}
+          />
+        ))}
         {searchText &&
           !content &&
           (type ? (
@@ -99,8 +86,8 @@ function Search() {
             <h2 data-testid="not-found">No Movies Found</h2>
           ))}
       </div>
-      {numOfPages > 1 && (
-        <CustomPagination setPage={setPage} numOfPages={numOfPages} />
+      {data?.numOfPages > 1 && (
+        <CustomPagination setPage={setPage} numOfPages={data.numOfPages} />
       )}
     </div>
   );
