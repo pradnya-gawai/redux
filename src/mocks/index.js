@@ -31,7 +31,7 @@ export const handlers = [
       return res(ctx.status(200), ctx.json(exploreMoviesPage2));
     }
   }),
-  rest.get(`${baseUrl}/discover/tv?api_key=${API_KEY}`, (req, res, ctx) => {
+  rest.get(`${baseUrl}/discover/tv`, (req, res, ctx) => {
     let page = req.url.searchParams.get('page');
     if (page === '1') {
       return res(ctx.status(200), ctx.json(exploreSeriesPage1));

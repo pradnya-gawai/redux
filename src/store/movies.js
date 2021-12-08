@@ -23,7 +23,7 @@ const moviesSuccess = (payload) => ({
 // data fetching
 export const fetchMovies = (page) => async (dispatch) => {
   const { data } = await axios.get(
-    `${baseUrl}/trending/all/day?api_key=${API_KEY}&page=${page}`
+    `${baseUrl}/discover/movie?api_key=${API_KEY}&page=${page}`
   );
   // despacting action
   dispatch(moviesSuccess(data));
